@@ -1,7 +1,8 @@
 package com.example.userregister;
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import java.io.Serializable;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +12,13 @@ import android.widget.RadioGroup;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Context context;
     private EditText firstname;
     private EditText lastname;
     private EditText email;
     private RadioButton radiobutton;
     UserStorage us = UserStorage.getInstance();
-    User user = new User(null,null,null,null,0);
+    User user = new User(null,null,null,null,0,null);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         firstname = findViewById(R.id.fname);
         lastname = findViewById(R.id.lname);
         email = findViewById(R.id.mail);
+        context = MainActivity.this;
+        UserStorage.getInstance().loadUsers(context);
     }
 
     public void switchToListing(View view){
@@ -53,25 +57,21 @@ public class MainActivity extends AppCompatActivity {
             case R.id.late:
                 radiobutton = selectedDegree.findViewById(R.id.late);
                 user.degree = radiobutton.getText().toString();
-                us.addUser(new User(user.firstname, user.lastname, user.email, user.degree,user.photo));
                 break;
             case R.id.tite:
                 radiobutton = selectedDegree.findViewById(R.id.tite);
                 user.degree = radiobutton.getText().toString();
-                us.addUser(new User(user.firstname, user.lastname, user.email, user.degree,user.photo));
                 break;
             case R.id.tuta:
                 radiobutton = selectedDegree.findViewById(R.id.tuta);
                 user.degree = radiobutton.getText().toString();
-                us.addUser(new User(user.firstname, user.lastname, user.email, user.degree,user.photo));
                 break;
             case R.id.sate:
                 radiobutton = selectedDegree.findViewById(R.id.sate);
                 user.degree = radiobutton.getText().toString();
-                us.addUser(new User(user.firstname, user.lastname, user.email, user.degree,user.photo));
                 break;
         }
-
-
+        us.addUser(new User(user.firstname, user.lastname, user.email, user.degree,user.photo, user.program));
+        UserStorage.getInstance().saveUsers(context);
     }
 }

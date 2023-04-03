@@ -1,20 +1,23 @@
 package com.example.userregister;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     String firstname;
     String lastname;
     String email;
     String degree;
+    String program;
 
     int photo;
 
-    public User(String firstname, String lastname, String email, String degree,int photo){
+    public User(String firstname, String lastname, String email, String degree,int photo, String program){
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.degree = degree;
         this.photo = photo;
-
+        this.program = program;
     }
 
     public int getPhoto() {
@@ -25,6 +28,8 @@ public class User {
         this.photo = photo;
     }
 
+
+    public void setProgram(String program) {this.program = program;}
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
@@ -53,4 +58,6 @@ public class User {
     public String getDegree() {
         return degree;
     }
+
+    public String getProgram() {return program;}
 }
